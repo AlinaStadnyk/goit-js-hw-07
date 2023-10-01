@@ -37,11 +37,19 @@ function handlerClick(event) {
     `
     <div class="modal">
         <img src ="${event.target.dataset.source}"><a>Close</a>
-    </div>`
+    </div>`,
+    {
+      onShow: (instance) => {
+        document.addEventListener("keydown", handlerClose);
+      },
+      onClose: (instance) => {
+        document.removeEventListener("keydown", handlerClose);
+      },
+    }
   );
 
   instance.show();
-  document.addEventListener("keydown", handlerClose);
+
   function handlerClose(event) {
     if (event.code === "Escape") {
       instance.close();
