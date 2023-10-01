@@ -1,5 +1,4 @@
 import { galleryItems } from "./gallery-items.js";
-// Change code below this line
 
 console.log(galleryItems);
 
@@ -17,7 +16,7 @@ function createMarkup(arr) {
     <img
       class="gallery__image"
       src="${preview}"
-      data-source="${original}"
+data-source="${original}"
       alt="${description}"
     />
   </a>
@@ -27,23 +26,25 @@ function createMarkup(arr) {
     .join("");
 }
 selectors.gallery.addEventListener("click", handlerClick);
+
 function handlerClick(event) {
   event.preventDefault();
   if (event.target === event.currentTarget) {
     return;
   }
 
-  const instance = basicLightbox.create(`
-      <div class="modal">
-    <a class="gallery__link" href="">
-      <img
-        class="gallery__image"
-        src=""
-        data-source=""
-        alt="description"
-      />
-    </a>
-  </div>
-  `);
+  const instance = basicLightbox.create(
+    `
+    <div class="modal">
+        <img src ="${event.target.dataset.source}"><a>Close</a>
+    </div>`
+  );
+
   instance.show();
+  document.addEventListener("keydown", handlerClose);
+  function handlerClose(event) {
+    if (event.code === "Escape") {
+      instance.close();
+    }
+  }
 }
