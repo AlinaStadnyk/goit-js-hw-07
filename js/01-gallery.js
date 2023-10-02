@@ -58,4 +58,9 @@ function handlerClick(event) {
       instance.close();
     }
   }
+  const modal = document.querySelector(".modal");
+  modal.addEventListener("click", closeByClick);
+  function closeByClick() {
+    instance.close();
+  }
 }
