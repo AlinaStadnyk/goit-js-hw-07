@@ -36,12 +36,23 @@ function handlerClick(event) {
   const instance = basicLightbox.create(
     `
     <div class="modal">
-        <img src ="${event.target.dataset.source}"><a>Close</a>
-    </div>`
+        // <img src ="${event.target.dataset.source}"><a>Close</a>
+    </div>`,
+    {
+      onShow: (instance) => {
+        document.addEventListener("keydown", handlerClose);
+      },
+
+      onClose: (instance) => {
+        document.removeEventListener("keydown", handlerClose);
+      },
+    }
   );
 
   instance.show();
+
   document.addEventListener("keydown", handlerClose);
+
   function handlerClose(event) {
     if (event.code === "Escape") {
       instance.close();
